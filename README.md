@@ -13,8 +13,12 @@
 - **Dynamic Templates**: Choose from various test plan templates (Standard, Agile, Regulatory, etc.).
 - **Modern Dashboard**: A sleek, responsive UI built with React, Shadcn UI, and Tailwind CSS.
 - **SQLite Storage**: Local persistence for generated test plans and configurations.
+- **B.L.A.S.T. Protocol**: Built using the Blueprint, Link, Architect, Stylize, Trigger methodology for reliable AI automation.
 
 ---
+
+## 🧪 Methodology
+This project implements the **B.L.A.S.T.** protocol to ensure deterministic AI agent behavior. You can find the full protocol definition in [BLAST.md](./BLAST.md).
 
 ## 🏗️ Architecture & System Design
 
@@ -97,8 +101,10 @@ Project-Root/
 │   ├── frontend/          # React Vite App
 │   │   ├── src/           # UI Components & Hooks
 │   ├── data/              # SQLite Database file
-└── docs/
-    └── RUN_GUIDE.md       # Detailed technical setup and run guide
+├── docs/
+│   └── RUN_GUIDE.md       # Detailed technical setup and run guide
+├── BLAST.md               # B.L.A.S.T. Master System Prompt & Protocol
+└── README.md              # Project Overview
 ```
 
 ---
