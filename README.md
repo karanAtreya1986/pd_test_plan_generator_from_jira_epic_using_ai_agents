@@ -65,7 +65,8 @@ Project-Root/
 │   ├── frontend/          # React Vite App
 │   │   ├── src/           # UI Components & Hooks
 │   ├── data/              # SQLite Database file
-└── SETUP_AND_RUN.md       # Detailed technical setup
+└── docs/
+    └── RUN_GUIDE.md       # Detailed technical setup and run guide
 ```
 
 ---
