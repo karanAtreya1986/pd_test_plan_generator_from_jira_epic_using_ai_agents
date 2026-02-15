@@ -16,21 +16,53 @@
 
 ---
 
-## 🏗️ Architecture & Data Flow
+## 🏗️ Architecture & System Design
+
+### High-Level Data Flow
+The application follows a modern agentic architecture where the backend acts as an orchestrator between JIRA (Data Source) and LLMs (Intelligence Layer).
 
 ```mermaid
 graph TD
     User((User)) -->|Enters Ticket ID| Frontend[React Vite Frontend]
-    Frontend -->|POST /api/jira/fetch| Backend[Express.js Server]
-    Backend -->|Request Ticket| JiraAPI[JIRA Cloud API]
-    JiraAPI -->|Ticket Details| Backend
-    Backend -->|Prompt Engineering| AI[AI Agent Layer]
-    AI -->|Analyze Req| Groq[Groq LLM / Ollama]
-    Groq -->|Generated Plan| AI
-    AI -->|Structured Markdown| Backend
-    Backend -->|Store Plan| SQLite[(SQLite DB)]
-    Backend -->|Return Plan| Frontend
-    Frontend -->|Display Plan| User
+    Frontend -->|API Request| Backend[Express.js Orchestrator]
+    
+    subgraph "External Integrations"
+        Backend -->|Fetch Context| JiraAPI[JIRA Cloud REST API]
+        Backend -->|Reasoning & Generation| LLM[Groq / Ollama AI Agents]
+    end
+    
+    subgraph "Persistence Layer"
+        Backend -->|Read/Write Settings| SQLite[(SQLite DB)]
+        Backend -->|Cache Ticket Data| SQLite
+        Backend -->|Store Generated Plans| SQLite
+    end
+    
+    LLM -->|Markdown Content| Backend
+    Backend -->|Stream Response| Frontend
+    Frontend -->|Interactive Preview| User
+```
+
+### Component Interaction (Sequence)
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant F as Frontend (React)
+    participant B as Backend (Express)
+    participant J as JIRA API
+    participant A as AI Agent (Groq)
+    participant D as Database (SQLite)
+
+    U->>F: Input JIRA ID (e.g. TST-1)
+    F->>B: POST /api/jira/fetch
+    B->>J: Get Ticket Details
+    J-->>B: Return JSON (Summary, Desc, AC)
+    B->>D: Cache Ticket Context
+    F->>B: POST /api/testplan/generate
+    B->>A: Send Prompt (Ticket + Template)
+    A-->>B: Return Test Plan Markdown
+    B->>D: Save Generated Plan
+    B-->>F: Return Final Plan
+    F->>U: Display Rendered Markdown
 ```
 
 ---
