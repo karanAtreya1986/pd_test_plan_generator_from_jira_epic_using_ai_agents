@@ -18,7 +18,12 @@
 ---
 
 ## 🧪 Methodology
-This project implements the **B.L.A.S.T.** protocol to ensure deterministic AI agent behavior. You can find the full protocol definition in [BLAST.md](./BLAST.md).
+This project implements the **B.L.A.S.T.** protocol to ensure deterministic AI agent behavior. It features:
+- **Self-Annealing Logic**: Automatic repair loops for failed tools.
+- **Data-First Rule**: Mandatory schema definitions before code execution.
+- **3-Layer Architecture**: Separation of concerns between SOPs, Reasoning, and Tools.
+
+You can find the full protocol definition in [BLAST.md](./BLAST.md).
 
 ## 🏗️ Architecture & System Design
 
